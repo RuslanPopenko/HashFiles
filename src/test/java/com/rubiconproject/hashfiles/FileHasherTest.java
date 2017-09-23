@@ -1,6 +1,5 @@
 package com.rubiconproject.hashfiles;
 
-import com.google.common.hash.Hashing;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,8 +25,9 @@ public class FileHasherTest extends AbstactHashableTest {
                 + "one new line ";
 
         testFile = temporaryFolder.newFile("foo.txt");
-        Files.write(Paths.get(testFile.toURI()), fileContent.getBytes(StandardCharsets.UTF_8));
-        super.expectedHash = com.google.common.io.Files.asByteSource(testFile).hash(Hashing.sha512()).toString();
+
+        writeStringToTestFile(fileContent);
+        setExpectedHashFromFile(testFile);
     }
 
     @Test
@@ -54,5 +54,9 @@ public class FileHasherTest extends AbstactHashableTest {
     @Test
     public void hashFileTest() throws Exception {
         hashTest(new FileHasher(testFile));
+    }
+
+    private void writeStringToTestFile(String str) throws IOException {
+        Files.write(Paths.get(testFile.toURI()), str.getBytes(StandardCharsets.UTF_8));
     }
 }
