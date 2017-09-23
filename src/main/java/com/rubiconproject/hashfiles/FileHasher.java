@@ -19,7 +19,7 @@ public class FileHasher implements Hashable {
     private void validateFile() {
         validateNotNull(file, "File is null");
         assert file.exists() : "File " + file.getName() + " doesn't exist";
-        assert file.isFile() : "File " + file.getName() + " is not a file";
+        assert file.isFile() : file.getName() + " is not a file";
     }
 
     @Override
