@@ -17,12 +17,11 @@ public class FileHasherTest extends AbstactHashableTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    private String fileContent;
     private File testFile;
 
     @Before
     public void initData() throws IOException {
-        fileContent = "Test content " + System.lineSeparator()
+        final String fileContent = "Test content " + System.lineSeparator()
                 + "New line " + System.lineSeparator()
                 + "one new line ";
 
