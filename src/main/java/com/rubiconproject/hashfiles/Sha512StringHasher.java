@@ -4,6 +4,8 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static com.rubiconproject.hashfiles.Utils.validateNotNull;
+
 public class Sha512StringHasher implements Hashable {
 
     public static final String SHA_512_ALGORITHM = "SHA-512";
@@ -12,8 +14,8 @@ public class Sha512StringHasher implements Hashable {
     private String original;
 
     public Sha512StringHasher(String original) {
-        this.original = original;
         validateNotNull(original, "Inputted original string is null");
+        this.original = original;
         initializeMessageDigestIfNeeded();
     }
 
@@ -22,10 +24,6 @@ public class Sha512StringHasher implements Hashable {
         validateNotNull(charset, "Inputted charset is null");
         final byte[] hashed = hashOriginalWith(charset);
         return hexEncode(hashed);
-    }
-
-    private void validateNotNull(Object obj, String message) {
-        assert obj != null : message;
     }
 
     private void initializeMessageDigestIfNeeded() {
