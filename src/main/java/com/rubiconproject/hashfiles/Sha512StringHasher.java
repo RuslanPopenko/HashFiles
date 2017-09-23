@@ -4,14 +4,14 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Sha512Hasher implements Hashable {
+public class Sha512StringHasher implements Hashable {
 
     public static final String SHA_512_ALGORITHM = "SHA-512";
 
     private static MessageDigest sha512MessageDigest;
     private String original;
 
-    public Sha512Hasher(String original) {
+    public Sha512StringHasher(String original) {
         this.original = original;
         validateNotNull(original, "Inputted original string is null");
         initializeMessageDigestIfNeeded();
