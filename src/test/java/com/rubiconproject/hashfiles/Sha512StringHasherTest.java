@@ -22,14 +22,28 @@ public class Sha512StringHasherTest {
         Assert.assertEquals(SHA_512_ALGORITHM, sha512Algorithm.getAlgorithm());
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void nullInitializationTest() {
-        new Sha512StringHasher(null);
+        boolean errorFired = false;
+        try {
+            new Sha512StringHasher(null);
+        } catch (AssertionError e) {
+            Assert.assertEquals("Inputted original string is null", e.getMessage());
+            errorFired = true;
+        }
+        Assert.assertTrue(errorFired);
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void nullCharsetTest() {
-        new Sha512StringHasher(testString).hash(null);
+        boolean errorFired = false;
+        try {
+            new Sha512StringHasher(testString).hash(null);
+        } catch (AssertionError e) {
+            Assert.assertEquals("Inputted charset is null", e.getMessage());
+            errorFired = true;
+        }
+        Assert.assertTrue(errorFired);
     }
 
     @Test
