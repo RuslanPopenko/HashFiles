@@ -6,6 +6,8 @@ import org.junit.Assert;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public abstract class AbstactHashableTest {
 
@@ -29,6 +31,10 @@ public abstract class AbstactHashableTest {
 
     protected void setExpectedHashFromFile(File file) throws IOException {
         expectedHash = com.google.common.io.Files.asByteSource(file).hash(Hashing.sha512()).toString();
+    }
+
+    public void writeStringIntoFile(String str, File file) throws IOException {
+        Files.write(Paths.get(file.toURI()), str.getBytes(StandardCharsets.UTF_8));
     }
 
 }

@@ -7,9 +7,6 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class FileHasherTest extends AbstactHashableTest {
 
@@ -26,7 +23,7 @@ public class FileHasherTest extends AbstactHashableTest {
 
         testFile = temporaryFolder.newFile("foo.txt");
 
-        writeStringToTestFile(fileContent);
+        writeStringIntoFile(fileContent, testFile);
         setExpectedHashFromFile(testFile);
     }
 
@@ -54,9 +51,5 @@ public class FileHasherTest extends AbstactHashableTest {
     @Test
     public void hashFileTest() throws Exception {
         hashTest(new FileHasher(testFile));
-    }
-
-    private void writeStringToTestFile(String str) throws IOException {
-        Files.write(Paths.get(testFile.toURI()), str.getBytes(StandardCharsets.UTF_8));
     }
 }
