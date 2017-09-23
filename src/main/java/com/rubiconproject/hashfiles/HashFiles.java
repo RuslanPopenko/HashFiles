@@ -1,4 +1,4 @@
-package com.rubiconproject.hasher;
+package com.rubiconproject.hashfiles;
 
 public class HashFiles {
 
