@@ -1,7 +1,6 @@
 package com.rubiconproject.hashfiles;
 
 import com.google.common.hash.Hashing;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,12 +12,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class FileHasherTest {
+public class FileHasherTest extends AbstactHashableTest {
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
     private String fileContent;
-    private String expectedHash;
     private File testFile;
 
     @Before
@@ -29,49 +28,32 @@ public class FileHasherTest {
 
         testFile = temporaryFolder.newFile("foo.txt");
         Files.write(Paths.get(testFile.toURI()), fileContent.getBytes(StandardCharsets.UTF_8));
-        expectedHash = com.google.common.io.Files.asByteSource(testFile).hash(Hashing.sha512()).toString();
+        super.expectedHash = com.google.common.io.Files.asByteSource(testFile).hash(Hashing.sha512()).toString();
     }
 
     @Test
     public void nullInitializationTest() {
-        boolean errorFired = false;
-        try {
-            new FileHasher(null);
-        } catch (AssertionError e) {
-            Assert.assertEquals("File is null", e.getMessage());
-            errorFired = true;
-        }
-        Assert.assertTrue(errorFired);
+        throwErrorTest(
+                () -> new FileHasher(null),
+                "File is null");
     }
 
     @Test
     public void nonExistingFileInitializationTest() {
-        boolean errorFired = false;
-        try {
-            new FileHasher(new File("foo"));
-        } catch (AssertionError e) {
-            Assert.assertEquals("File foo doesn't exist", e.getMessage());
-            errorFired = true;
-        }
-        Assert.assertTrue(errorFired);
+        throwErrorTest(
+                () -> new FileHasher(new File("foo")),
+                "File foo doesn't exist");
     }
 
     @Test
     public void nullCharsetTest() {
-        boolean errorFired = false;
-        try {
-            new FileHasher(testFile).hash(null);
-        } catch (AssertionError e) {
-            Assert.assertEquals("Inputted charset is null", e.getMessage());
-            errorFired = true;
-        }
-        Assert.assertTrue(errorFired);
+        throwErrorTest(
+                () -> new FileHasher(testFile).hash(null),
+                "Inputted charset is null");
     }
 
     @Test
     public void hashFileTest() throws Exception {
-        final FileHasher fileHasher = new FileHasher(testFile);
-        final String actualHash = fileHasher.hash(StandardCharsets.UTF_8);
-        Assert.assertEquals(expectedHash, actualHash);
+        hashTest(new FileHasher(testFile));
     }
 }

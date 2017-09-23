@@ -11,15 +11,14 @@ import java.security.NoSuchAlgorithmException;
 
 import static com.rubiconproject.hashfiles.Sha512StringHasher.SHA_512_ALGORITHM;
 
-public class Sha512StringHasherTest {
+public class Sha512StringHasherTest extends AbstactHashableTest {
 
     private String testString;
-    private String expectedHash;
 
     @Before
     public void initTestData() {
         testString = "Test string";
-        expectedHash = Hashing.sha512().hashString(testString, StandardCharsets.UTF_8).toString();
+        super.expectedHash = Hashing.sha512().hashString(testString, StandardCharsets.UTF_8).toString();
     }
 
     @Test
@@ -30,32 +29,20 @@ public class Sha512StringHasherTest {
 
     @Test
     public void nullInitializationTest() {
-        boolean errorFired = false;
-        try {
-            new Sha512StringHasher(null);
-        } catch (AssertionError e) {
-            Assert.assertEquals("Inputted original string is null", e.getMessage());
-            errorFired = true;
-        }
-        Assert.assertTrue(errorFired);
+        throwErrorTest(
+                () -> new Sha512StringHasher(null),
+                "Inputted original string is null");
     }
 
     @Test
     public void nullCharsetTest() {
-        boolean errorFired = false;
-        try {
-            new Sha512StringHasher(testString).hash(null);
-        } catch (AssertionError e) {
-            Assert.assertEquals("Inputted charset is null", e.getMessage());
-            errorFired = true;
-        }
-        Assert.assertTrue(errorFired);
+        throwErrorTest(
+                () -> new Sha512StringHasher(testString).hash(null),
+                "Inputted charset is null");
     }
 
     @Test
     public void hashStringTest() {
-        final Hashable sha512Hasher = new Sha512StringHasher(testString);
-        final String actualHash = sha512Hasher.hash(StandardCharsets.UTF_8);
-        Assert.assertEquals(expectedHash, actualHash);
+        hashTest(new Sha512StringHasher(testString));
     }
 }
