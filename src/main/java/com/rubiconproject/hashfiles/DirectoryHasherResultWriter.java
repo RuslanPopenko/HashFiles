@@ -21,6 +21,7 @@ public class DirectoryHasherResultWriter {
     }
 
     public void write(File outputDir) {
+        validateDirectory(outputDir);
         deleteAndThenCreate(outputDir);
         final File resultFile = new File(outputDir, "results.txt");
         try (final PrintWriter pw = new PrintWriter(resultFile)) {
@@ -31,6 +32,10 @@ public class DirectoryHasherResultWriter {
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    private void validateDirectory(File directory) {
+        assert "output".equals(directory.getName()) : "Directory name is not \"output\"";
     }
 
     private void deleteAndThenCreate(File outputDir) {
