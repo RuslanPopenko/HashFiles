@@ -39,6 +39,11 @@ public class Sha512StringHasherTest extends AbstactHashableTest {
     }
 
     @Test
+    public void getNameTest() {
+        super.getNameTest(new Sha512StringHasher(testString), testString);
+    }
+
+    @Test
     public void hashStringTest() {
         super.expectedHash = "af371785c4fecf30acdd648a7d4d649901eeb67536206a9f517768f0851c0a06616f724b2a194e7bc0a762636c55fc34e0fcaf32f1e852682b2b07a9d7b7a9f9";
         hashTest(new Sha512StringHasher(testString));

@@ -4,6 +4,8 @@ import java.nio.charset.Charset;
 
 public interface Hashable {
 
-    String hash(Charset charset);
+    public String hash(Charset charset);
+
+    public String getName();
 
 }

@@ -30,6 +30,11 @@ public class FileHasher implements Hashable {
                 .hash(charset);
     }
 
+    @Override
+    public String getName() {
+        return file.getName();
+    }
+
     private String readFileContent(final Charset charset) {
         try (final FileInputStream fis = new FileInputStream(file)) {
             final byte[] data = new byte[(int) file.length()];

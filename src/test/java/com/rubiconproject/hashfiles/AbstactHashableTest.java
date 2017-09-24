@@ -29,6 +29,10 @@ public abstract class AbstactHashableTest {
         Assert.assertEquals(expectedHash, actualHash);
     }
 
+    protected void getNameTest(Hashable hashable, String expectedName) {
+        Assert.assertEquals(expectedName, hashable.getName());
+    }
+
     protected void setExpectedHashFromFile(File file) throws IOException {
         expectedHash = com.google.common.io.Files.asByteSource(file).hash(Hashing.sha512()).toString();
     }

@@ -29,6 +29,11 @@ public class DirectoryHasher implements Hashable {
                 .hash(charset);
     }
 
+    @Override
+    public String getName() {
+        return directory.getName();
+    }
+
     public List<Hashable> getDirectoryFiles() {
         return directoryFiles;
     }

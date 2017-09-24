@@ -49,6 +49,11 @@ public class FileHasherTest extends AbstactHashableTest {
     }
 
     @Test
+    public void getNameTest() {
+        super.getNameTest(new FileHasher(testFile), "foo.txt");
+    }
+
+    @Test
     public void hashFileTest() throws Exception {
         hashTest(new FileHasher(testFile));
     }

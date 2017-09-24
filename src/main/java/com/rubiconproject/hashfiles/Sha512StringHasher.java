@@ -26,6 +26,11 @@ public class Sha512StringHasher implements Hashable {
         return hexEncode(hashed);
     }
 
+    @Override
+    public String getName() {
+        return original;
+    }
+
     private void initializeMessageDigestIfNeeded() {
         if (sha512MessageDigest == null) {
             try {

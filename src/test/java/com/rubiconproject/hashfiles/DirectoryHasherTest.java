@@ -73,6 +73,11 @@ public class DirectoryHasherTest extends AbstactHashableTest {
     }
 
     @Test
+    public void getNameTest() {
+        super.getNameTest(new DirectoryHasher(testDirectory), "input");
+    }
+
+    @Test
     public void hashDirectoryTest() throws Exception {
         final DirectoryHasher testDirectoryHasher = new DirectoryHasher(testDirectory);
 
