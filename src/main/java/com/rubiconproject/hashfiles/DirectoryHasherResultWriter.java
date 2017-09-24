@@ -26,7 +26,7 @@ public class DirectoryHasherResultWriter {
         try (final PrintWriter pw = new PrintWriter(resultFile)) {
             printWriter = pw;
             currentDirContext = "";
-            printFileHash(directoryHasher);
+            printHash(directoryHasher);
             pw.flush();
         } catch (IOException e) {
             throw new IllegalStateException(e);
@@ -40,7 +40,7 @@ public class DirectoryHasherResultWriter {
         outputDir.mkdir();
     }
 
-    private void printFileHash(Hashable hashable) {
+    private void printHash(Hashable hashable) {
         printWriter.println(currentDirContext + "/" + hashable.getName());
         printWriter.println(hashable.hash(StandardCharsets.UTF_8));
         if (hashable instanceof DirectoryHasher) {
@@ -49,11 +49,11 @@ public class DirectoryHasherResultWriter {
     }
 
     private void printChildrenHashes(DirectoryHasher directoryHasher) {
-        final String prevDirContext = currentDirContext;
+        final String directoryContextSaver = currentDirContext;
         currentDirContext += "/" + directoryHasher.getName();
         final List<Hashable> directoryFiles = directoryHasher.getDirectoryFiles();
-        directoryFiles.forEach(this::printFileHash);
-        currentDirContext = prevDirContext;
+        directoryFiles.forEach(this::printHash);
+        currentDirContext = directoryContextSaver;
     }
 
 }
