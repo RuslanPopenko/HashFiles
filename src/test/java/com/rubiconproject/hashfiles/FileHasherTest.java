@@ -26,14 +26,14 @@ public class FileHasherTest extends AbstactHashableTest {
 
     @Test
     public void nullInitializationTest() {
-        throwErrorTest(
+        expectedAssertErrorWithMessage(
                 () -> new FileHasher(null),
                 "File is null");
     }
 
     @Test
     public void nonExistingFileInitializationTest() {
-        throwErrorTest(
+        expectedAssertErrorWithMessage(
                 () -> new FileHasher(new File(testFile.getParentFile(), "test.txt")),
                 "File test.txt doesn't exist");
     }
@@ -42,24 +42,24 @@ public class FileHasherTest extends AbstactHashableTest {
     public void isNotFileTest() {
         final File foo = new File(testFile.getParentFile(), "foo");
         foo.mkdir();
-        throwErrorTest(
+        expectedAssertErrorWithMessage(
                 () -> new FileHasher(foo),
                 "foo is not a file");
     }
 
     @Test
     public void nullCharsetTest() {
-        nullCharsetTest(new FileHasher(testFile));
+        expectedAssertErrorWithMessageInvokingHashWithNullCharset(new FileHasher(testFile));
     }
 
     @Test
     public void getNameTest() {
-        super.getNameTest(new FileHasher(testFile), "foo.txt");
+        super.expectedGetNameOfHashableInstance(new FileHasher(testFile), "foo.txt");
     }
 
     @Test
     public void hashFileTest() throws Exception {
         super.expectedHash = "af371785c4fecf30acdd648a7d4d649901eeb67536206a9f517768f0851c0a06616f724b2a194e7bc0a762636c55fc34e0fcaf32f1e852682b2b07a9d7b7a9f9";
-        hashTest(new FileHasher(testFile));
+        resultEqualsExpectedHash(new FileHasher(testFile));
     }
 }

@@ -24,7 +24,7 @@ public abstract class AbstactHashableTest {
      * @param runnable        piece of code where should be error
      * @param expectedMessage error message for check
      */
-    protected void throwErrorTest(Runnable runnable, String expectedMessage) {
+    protected void expectedAssertErrorWithMessage(Runnable runnable, String expectedMessage) {
         boolean errorFired = false;
         try {
             runnable.run();
@@ -39,8 +39,8 @@ public abstract class AbstactHashableTest {
      * Tests that hashable hash invocation with null argument produces AssertionError with Charset is null message
      * @param hashable
      */
-    protected void nullCharsetTest(Hashable hashable) {
-        throwErrorTest(
+    protected void expectedAssertErrorWithMessageInvokingHashWithNullCharset(Hashable hashable) {
+        expectedAssertErrorWithMessage(
                 () -> hashable.hash(null),
                 "Charset is null");
     }
@@ -49,7 +49,7 @@ public abstract class AbstactHashableTest {
      * Tests of the Hashable hash result equals expectedHash
      * @param hashable
      */
-    protected void hashTest(Hashable hashable) {
+    protected void resultEqualsExpectedHash(Hashable hashable) {
         final String actualHash = hashable.hash(StandardCharsets.UTF_8);
         assertEquals(expectedHash, actualHash);
     }
@@ -59,7 +59,7 @@ public abstract class AbstactHashableTest {
      * @param hashable
      * @param expectedName
      */
-    protected void getNameTest(Hashable hashable, String expectedName) {
+    protected void expectedGetNameOfHashableInstance(Hashable hashable, String expectedName) {
         assertEquals(expectedName, hashable.getName());
     }
 

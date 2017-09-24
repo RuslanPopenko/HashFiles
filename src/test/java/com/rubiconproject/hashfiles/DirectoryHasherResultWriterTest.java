@@ -23,7 +23,7 @@ public class DirectoryHasherResultWriterTest extends AbstactHashableTest {
 
     @Test
     public void nullInitializationTest() {
-        throwErrorTest(
+        expectedAssertErrorWithMessage(
                 () -> new DirectoryHasherResultWriter(null),
                 "Directory hasher is null");
     }
@@ -32,7 +32,7 @@ public class DirectoryHasherResultWriterTest extends AbstactHashableTest {
     public void anotherNameTest() {
         final File fooDir = new File(testDirectory, "foo");
         fooDir.mkdir();
-        throwErrorTest(
+        expectedAssertErrorWithMessage(
                 () -> new DirectoryHasherResultWriter(new DirectoryHasher(testDirectory)).write(fooDir),
                 "Directory name is not \"output\"");
     }
