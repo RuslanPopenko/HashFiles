@@ -14,7 +14,6 @@ import static com.rubiconproject.hashfiles.Sha512StringHasher.SHA_512_ALGORITHM;
  *
  * @see Sha512StringHasher
  */
-
 public class Sha512StringHasherTest extends AbstactHashableTest {
 
     private String testString;
