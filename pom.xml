@@ -24,7 +24,7 @@
     </dependencies>
 
     <build>
-        <finalName>hasher</finalName>
+        <finalName>hashfiles</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
