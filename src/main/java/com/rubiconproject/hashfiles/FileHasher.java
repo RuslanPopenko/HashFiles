@@ -32,16 +32,8 @@ public class FileHasher implements Hashable {
     }
 
     /**
-     * Validates file for null, existing and file is normal file
-     */
-    private void validateFile() {
-        validateNotNull(file, "File is null");
-        assert file.exists() : "File " + file.getName() + " doesn't exist";
-        assert file.isFile() : file.getName() + " is not a file";
-    }
-
-    /**
-     * Keeps prev calculated hash.
+     * Return previous calculated hash,
+     * if it exist and if the same charset was used.
      *
      * @see Hashable#hash(Charset)
      */
@@ -62,6 +54,15 @@ public class FileHasher implements Hashable {
     @Override
     public String getName() {
         return file.getName();
+    }
+
+    /**
+     * Validates file for null, existing and file is normal file
+     */
+    private void validateFile() {
+        validateNotNull(file, "File is null");
+        assert file.exists() : "File " + file.getName() + " doesn't exist";
+        assert file.isFile() : file.getName() + " is not a file";
     }
 
     /**
