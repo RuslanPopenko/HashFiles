@@ -9,6 +9,11 @@ import org.junit.rules.TemporaryFolder;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Test class for DirectoryHasherResultWriter.
+ *
+ * @see DirectoryHasherResultWriter
+ */
 public class DirectoryHasherResultWriterTest extends AbstactHashableTest {
 
     @Rule
@@ -22,14 +27,14 @@ public class DirectoryHasherResultWriterTest extends AbstactHashableTest {
     }
 
     @Test
-    public void nullInitializationTest() {
+    public void expectedAssertErrorWithMessageOnNullArgumentInitializationTest() {
         expectedAssertErrorWithMessage(
                 () -> new DirectoryHasherResultWriter(null),
                 "Directory hasher is null");
     }
 
     @Test
-    public void anotherNameTest() {
+    public void expectedAssertErrorWithMessageOnAnotherNameOfOutputFolderTest() {
         final File fooDir = new File(testDirectory, "foo");
         fooDir.mkdir();
         expectedAssertErrorWithMessage(
@@ -38,20 +43,28 @@ public class DirectoryHasherResultWriterTest extends AbstactHashableTest {
     }
 
     @Test
-    public void createWithExistingFolder() throws IOException {
+    public void expectOutputDirectoryAndFileExistsAndResultFileHasCorrectContentWhenOutputFolderExistTest()
+            throws IOException {
         final File output = temporaryFolder.newFolder("output");
         new DirectoryHasherResultWriter(new DirectoryHasher(testDirectory)).write(output);
-        checkDirectoryHashResult(output);
+        expectOutputDirectoryAndFileExistsAndResultFileHasCorrectContent(output);
     }
 
     @Test
-    public void createWithNonExistingFolder() throws IOException {
+    public void expectOutputDirectoryAndFileExistsAndResultFileHasCorrectContentWhenOutputFolderDoesntExistTest()
+            throws IOException {
         final File output = new File(testDirectory.getParentFile(), "output");
         new DirectoryHasherResultWriter(new DirectoryHasher(testDirectory)).write(output);
-        checkDirectoryHashResult(output);
+        expectOutputDirectoryAndFileExistsAndResultFileHasCorrectContent(output);
     }
 
-    private void checkDirectoryHashResult(File output) throws IOException {
+    /**
+     * Expected result comes from /src/main/resources/README.md
+     *
+     * @param output
+     * @throws IOException
+     */
+    private void expectOutputDirectoryAndFileExistsAndResultFileHasCorrectContent(File output) throws IOException {
         Assert.assertTrue("Directory output doesn't exist", output.exists());
         final File results = new File(output, "results.txt");
         Assert.assertTrue("results.txt doesn't exist", results.exists());
