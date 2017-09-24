@@ -68,6 +68,15 @@ public class DirectoryHasherTest extends AbstactHashableTest {
     }
 
     @Test
+    public void fileInitializationTest() throws IOException {
+        final File testFile = new File(testDirectory, "foo.txt");
+        testFile.createNewFile();
+        throwErrorTest(
+                () -> new DirectoryHasher(testFile),
+                "foo.txt is not a directory");
+    }
+
+    @Test
     public void nullCharsetTest() {
         nullCharsetTest(new DirectoryHasher(testDirectory));
     }
