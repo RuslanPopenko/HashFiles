@@ -1,0 +1,42 @@
+Hash files
+==========
+
+Prerequisites
+-------------
+
+    - Java Runtime Environment (version 1.8  or greater)
+    - Maven 3.0
+
+Build
+-----
+
+To build the program go to project directory with command:
+
+`cd /path/to/project`
+
+Then run Maven package with command:
+
+`mvn clean package`
+
+Run unit tests
+--------------
+
+To run unit tests you need go the project directory, this command described above.
+
+Then run Maven test phase with command:
+
+`mvn test`
+
+Run the program
+---------------
+
+To run the program you build it in the way described above.
+
+Then go to the target folder:
+
+`cd target`
+
+Then run the program with command:
+
+`java -jar hasher.jar`
+
