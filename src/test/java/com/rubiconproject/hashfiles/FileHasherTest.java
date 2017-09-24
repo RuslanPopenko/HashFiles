@@ -34,8 +34,17 @@ public class FileHasherTest extends AbstactHashableTest {
     @Test
     public void nonExistingFileInitializationTest() {
         throwErrorTest(
-                () -> new FileHasher(new File(testFile.getParentFile(), "foo")),
-                "File foo doesn't exist");
+                () -> new FileHasher(new File(testFile.getParentFile(), "foo.txt")),
+                "File foo.txt doesn't exist");
+    }
+
+    @Test
+    public void isNotFileTest() {
+        final File foo = new File(testFile.getParentFile(), "foo");
+        foo.mkdir();
+        throwErrorTest(
+                () -> new FileHasher(foo),
+                "foo is not a file");
     }
 
     @Test
