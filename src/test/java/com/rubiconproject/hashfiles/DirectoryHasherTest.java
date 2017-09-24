@@ -1,5 +1,6 @@
 package com.rubiconproject.hashfiles;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class DirectoryHasherTest extends AbstactHashableTest {
@@ -75,6 +77,36 @@ public class DirectoryHasherTest extends AbstactHashableTest {
     @Test
     public void getNameTest() {
         super.getNameTest(new DirectoryHasher(testDirectory), "input");
+    }
+
+    @Test
+    public void expectedEmptyDirectoryFilesBeforeHashFunctionInvoked() {
+        Assert.assertTrue(new DirectoryHasher(testDirectory).getDirectoryFiles().isEmpty());
+    }
+
+    @Test
+    public void directoryFilesOrderTest() {
+        final DirectoryHasher testDirectoryHasher = new DirectoryHasher(testDirectory);
+        testDirectoryHasher.hash(StandardCharsets.UTF_8);
+
+        final List<Hashable> directoryFiles = testDirectoryHasher.getDirectoryFiles();
+
+        final DirectoryHasher bar = (DirectoryHasher) directoryFiles.get(0);
+        Assert.assertEquals("bar", bar.getName());
+
+        final List<Hashable> barDirectoryFiles = bar.getDirectoryFiles();
+
+        Assert.assertEquals("fileA.dat", barDirectoryFiles.get(0).getName());
+        Assert.assertEquals("fileB.dat", barDirectoryFiles.get(1).getName());
+        Assert.assertEquals("fileC.dat", barDirectoryFiles.get(2).getName());
+
+        final DirectoryHasher faz = (DirectoryHasher) directoryFiles.get(1);
+        Assert.assertEquals("faz", faz.getName());
+
+        final List<Hashable> fazDirectoryFiles = faz.getDirectoryFiles();
+
+        Assert.assertEquals("fileD.dat", fazDirectoryFiles.get(0).getName());
+        Assert.assertEquals("fileE.dat", fazDirectoryFiles.get(1).getName());
     }
 
     @Test
