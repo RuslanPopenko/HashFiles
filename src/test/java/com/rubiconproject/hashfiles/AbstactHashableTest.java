@@ -1,6 +1,5 @@
 package com.rubiconproject.hashfiles;
 
-import org.junit.Assert;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
@@ -9,36 +8,67 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Common abstract class which ensures non repeatable code in the tests.
+ */
 public abstract class AbstactHashableTest {
 
     protected String expectedHash;
 
+    /**
+     * Tests that in some code fired assertion AssertionError with exact error message,
+     *
+     * @param runnable        piece of code where should be error
+     * @param expectedMessage error message for check
+     */
     protected void throwErrorTest(Runnable runnable, String expectedMessage) {
         boolean errorFired = false;
         try {
             runnable.run();
         } catch (AssertionError e) {
-            Assert.assertEquals(expectedMessage, e.getMessage());
+            assertEquals(expectedMessage, e.getMessage());
             errorFired = true;
         }
-        Assert.assertTrue("AssertionError isn't fired", errorFired);
+        assertTrue("AssertionError isn't fired", errorFired);
     }
 
+    /**
+     * Tests that hashable hash invocation with null argument produces AssertionError with Charset is null message
+     * @param hashable
+     */
     protected void nullCharsetTest(Hashable hashable) {
         throwErrorTest(
                 () -> hashable.hash(null),
                 "Charset is null");
     }
 
+    /**
+     * Tests of the Hashable hash result equals expectedHash
+     * @param hashable
+     */
     protected void hashTest(Hashable hashable) {
         final String actualHash = hashable.hash(StandardCharsets.UTF_8);
-        Assert.assertEquals(expectedHash, actualHash);
+        assertEquals(expectedHash, actualHash);
     }
 
+    /**
+     * Tests hashable getName equals expectedName
+     * @param hashable
+     * @param expectedName
+     */
     protected void getNameTest(Hashable hashable, String expectedName) {
-        Assert.assertEquals(expectedName, hashable.getName());
+        assertEquals(expectedName, hashable.getName());
     }
 
+    /**
+     * Creates temporary folder just like in the /src/main/resources/input.
+     * @param temporaryFolder
+     * @return
+     * @throws IOException
+     */
     protected File createTestDirectory(final TemporaryFolder temporaryFolder) throws IOException {
         final File testDirectory = temporaryFolder.newFolder("input");
 
@@ -74,10 +104,24 @@ public abstract class AbstactHashableTest {
         return testDirectory;
     }
 
+    /**
+     * Writes string into the file.
+     * There is NIO used, but it test, so I think it's applicable.
+     * @param str
+     * @param file
+     * @throws IOException
+     */
     protected void writeStringIntoFile(String str, File file) throws IOException {
         Files.write(Paths.get(file.toURI()), str.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Reads file into String
+     * There is NIO used, but it test, so I think it's applicable.
+     * @param file
+     * @return
+     * @throws IOException
+     */
     protected String readFile(File file) throws IOException {
         final byte[] bytes = Files.readAllBytes(Paths.get(file.toURI()));
         return new String(bytes, StandardCharsets.UTF_8);
