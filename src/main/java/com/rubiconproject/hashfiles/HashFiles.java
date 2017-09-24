@@ -2,8 +2,21 @@ package com.rubiconproject.hashfiles;
 
 import java.io.File;
 
+/**
+ * Class which contains program entry point
+ *
+ * @see DirectoryHasher
+ * @see DirectoryHasherResultWriter
+ */
 public class HashFiles {
 
+    /**
+     * Main method takes first argument as path to "input" folder.
+     * Creates DirectoryHasher for this input directory.
+     * Creates DirectoryHasherResultWriter to the "output" folder, placed at the same level as "input"
+     *
+     * @param args program arguments
+     */
     public static void main(String[] args) {
         if (args.length < 1) {
             System.err.println("One arguments expected: <path>");
