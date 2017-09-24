@@ -23,6 +23,12 @@ public abstract class AbstactHashableTest {
         Assert.assertTrue("AssertionError isn't fired", errorFired);
     }
 
+    protected void nullCharsetTest(Hashable hashable) {
+        throwErrorTest(
+                () -> hashable.hash(null),
+                "Charset is null");
+    }
+
     protected void hashTest(Hashable hashable) {
         final String actualHash = hashable.hash(StandardCharsets.UTF_8);
         Assert.assertEquals(expectedHash, actualHash);

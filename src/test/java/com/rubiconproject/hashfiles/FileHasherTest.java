@@ -40,9 +40,7 @@ public class FileHasherTest extends AbstactHashableTest {
 
     @Test
     public void nullCharsetTest() {
-        throwErrorTest(
-                () -> new FileHasher(testFile).hash(null),
-                "Inputted charset is null");
+        nullCharsetTest(new FileHasher(testFile));
     }
 
     @Test

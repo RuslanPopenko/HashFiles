@@ -69,9 +69,7 @@ public class DirectoryHasherTest extends AbstactHashableTest {
 
     @Test
     public void nullCharsetTest() {
-        throwErrorTest(
-                () -> new DirectoryHasher(testDirectory).hash(null),
-                "Inputted charset is null");
+        nullCharsetTest(new DirectoryHasher(testDirectory));
     }
 
     @Test

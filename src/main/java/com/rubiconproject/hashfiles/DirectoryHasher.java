@@ -13,6 +13,7 @@ public class DirectoryHasher implements Hashable {
 
     private File directory;
     private Charset charset;
+    private String hash;
     private List<Hashable> directoryFiles = new ArrayList<>();
 
     public DirectoryHasher(File directory) {
@@ -22,11 +23,17 @@ public class DirectoryHasher implements Hashable {
 
     @Override
     public String hash(Charset charset) {
+        validateNotNull(charset, "Charset is null");
+
+        if (hash != null && this.charset.equals(charset)) {
+            return hash;
+        }
+
         this.charset = charset;
         final File[] directoryFiles = directoryFiles();
         final String concatHashOfDirectoryFiles = concatHashesOf(directoryFiles);
-        return new Sha512StringHasher(concatHashOfDirectoryFiles)
-                .hash(charset);
+        hash = new Sha512StringHasher(concatHashOfDirectoryFiles).hash(charset);
+        return hash;
     }
 
     @Override

@@ -10,6 +10,8 @@ import static com.rubiconproject.hashfiles.Utils.validateNotNull;
 public class FileHasher implements Hashable {
 
     private File file;
+    private Charset charset;
+    private String hash;
 
     public FileHasher(File file) {
         this.file = file;
@@ -24,10 +26,16 @@ public class FileHasher implements Hashable {
 
     @Override
     public String hash(final Charset charset) {
-        validateNotNull(charset, "Inputted charset is null");
+        validateNotNull(charset, "Charset is null");
+
+        if (hash != null && this.charset.equals(charset)) {
+            return hash;
+        }
+
+        this.charset = charset;
         final String fileContent = readFileContent(charset);
-        return new Sha512StringHasher(fileContent)
-                .hash(charset);
+        hash = new Sha512StringHasher(fileContent).hash(charset);
+        return hash;
     }
 
     @Override

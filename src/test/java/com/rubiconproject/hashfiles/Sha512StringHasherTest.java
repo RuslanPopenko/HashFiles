@@ -33,9 +33,7 @@ public class Sha512StringHasherTest extends AbstactHashableTest {
 
     @Test
     public void nullCharsetTest() {
-        throwErrorTest(
-                () -> new Sha512StringHasher(testString).hash(null),
-                "Inputted charset is null");
+        nullCharsetTest(new Sha512StringHasher(testString));
     }
 
     @Test

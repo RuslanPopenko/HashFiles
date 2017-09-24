@@ -21,7 +21,7 @@ public class Sha512StringHasher implements Hashable {
 
     @Override
     public String hash(Charset charset) {
-        validateNotNull(charset, "Inputted charset is null");
+        validateNotNull(charset, "Charset is null");
         final byte[] hashed = hashOriginalWith(charset);
         return hexEncode(hashed);
     }
