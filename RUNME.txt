@@ -43,5 +43,5 @@ Then run the program with command:
 Note
 ----
 
-You can test it on `target/classes/input folder`.
+You can test it on `/project/location/target/classes/input folder`.
 
