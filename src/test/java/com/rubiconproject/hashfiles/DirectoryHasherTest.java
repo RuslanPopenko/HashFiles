@@ -63,7 +63,7 @@ public class DirectoryHasherTest extends AbstactHashableTest {
     @Test
     public void nonExistingFileInitializationTest() {
         throwErrorTest(
-                () -> new DirectoryHasher(new File("foo")),
+                () -> new DirectoryHasher(new File(testDirectory, "foo")),
                 "Directory foo doesn't exist");
     }
 
