@@ -40,3 +40,8 @@ Then run the program with command:
 
 `java -jar hashfiles.jar "/path/to/input/folder"`
 
+Note
+----
+
+You can test it on `target/classes/input folder`.
+
