@@ -4,15 +4,14 @@ import java.nio.charset.Charset;
 
 /**
  * The <code>Hashable</code> interface should be implemented by any
- * class whose instances are intended to be hashed in string with some way.
+ * class whose instances are intended to be hashed in string in some way.
  */
 public interface Hashable {
 
     /**
-     * Get hash of implementation instance
-     *
+     * Get hash of instance which class implements this interface
      * @param charset encoding of inputting data and output string
-     * @return hash representation of implementation instance
+     * @return hash representation of instance which class implements this interface
      */
     public String hash(Charset charset);
 
