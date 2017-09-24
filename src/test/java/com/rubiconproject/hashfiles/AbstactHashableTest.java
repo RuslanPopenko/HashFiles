@@ -1,6 +1,5 @@
 package com.rubiconproject.hashfiles;
 
-import com.google.common.hash.Hashing;
 import org.junit.Assert;
 
 import java.io.File;
@@ -21,7 +20,7 @@ public abstract class AbstactHashableTest {
             Assert.assertEquals(expectedMessage, e.getMessage());
             errorFired = true;
         }
-        Assert.assertTrue(errorFired);
+        Assert.assertTrue("AssertionError isn't fired", errorFired);
     }
 
     protected void hashTest(Hashable hashable) {
@@ -31,10 +30,6 @@ public abstract class AbstactHashableTest {
 
     protected void getNameTest(Hashable hashable, String expectedName) {
         Assert.assertEquals(expectedName, hashable.getName());
-    }
-
-    protected void setExpectedHashFromFile(File file) throws IOException {
-        expectedHash = com.google.common.io.Files.asByteSource(file).hash(Hashing.sha512()).toString();
     }
 
     public void writeStringIntoFile(String str, File file) throws IOException {
