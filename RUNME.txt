@@ -38,5 +38,5 @@ Then go to the target folder:
 
 Then run the program with command:
 
-`java -jar hasher.jar`
+`java -jar hasher.jar "/path/to/input/folder"`
 
