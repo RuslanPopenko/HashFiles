@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+/**
+ * Test class for DirectoryHasher.
+ *
+ * @see DirectoryHasher
+ */
 public class DirectoryHasherTest extends AbstactHashableTest {
 
     @Rule
@@ -24,21 +29,21 @@ public class DirectoryHasherTest extends AbstactHashableTest {
     }
 
     @Test
-    public void nullInitializationTest() {
+    public void expectedAssertErrorWithMessageOnNullArgumentConstructorTest() {
         expectedAssertErrorWithMessage(
                 () -> new DirectoryHasher(null),
                 "Directory is null");
     }
 
     @Test
-    public void nonExistingFileInitializationTest() {
+    public void expectedAssertErrorWithMessageOnNonExistingFileInitializationTest() {
         expectedAssertErrorWithMessage(
                 () -> new DirectoryHasher(new File(testDirectory, "foo")),
                 "Directory foo doesn't exist");
     }
 
     @Test
-    public void fileInitializationTest() throws IOException {
+    public void expectedAssertErrorWithMessageOnFileInitializationTest() throws IOException {
         final File testFile = new File(testDirectory, "foo.txt");
         testFile.createNewFile();
         expectedAssertErrorWithMessage(
@@ -47,12 +52,12 @@ public class DirectoryHasherTest extends AbstactHashableTest {
     }
 
     @Test
-    public void nullCharsetTest() {
+    public void expectedAssertErrorWithMessageInvokingHashWithNullCharsetTest() {
         expectedAssertErrorWithMessageInvokingHashWithNullCharset(new DirectoryHasher(testDirectory));
     }
 
     @Test
-    public void getNameTest() {
+    public void expectedGetNameOfHashableInstanceTest() {
         super.expectedGetNameOfHashableInstance(new DirectoryHasher(testDirectory), "input");
     }
 
@@ -62,7 +67,7 @@ public class DirectoryHasherTest extends AbstactHashableTest {
     }
 
     @Test
-    public void directoryFilesOrderTest() {
+    public void expectedAlphabeticalDirectoryFilesOrderTest() {
         final DirectoryHasher testDirectoryHasher = new DirectoryHasher(testDirectory);
         testDirectoryHasher.hash(StandardCharsets.UTF_8);
 
@@ -87,7 +92,14 @@ public class DirectoryHasherTest extends AbstactHashableTest {
     }
 
     @Test
-    public void hashDirectoryTest() throws Exception {
+    public void expectedEmptyDirectoryHashTest() throws IOException {
+        final DirectoryHasher testDirectoryHasher = new DirectoryHasher(temporaryFolder.newFolder("empty"));
+        super.expectedHash = "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e";
+        resultEqualsExpectedHash(testDirectoryHasher);
+    }
+
+    @Test
+    public void resultEqualsExpectedHashForDirectoryAndAllItFilesTest() {
         final DirectoryHasher testDirectoryHasher = new DirectoryHasher(testDirectory);
 
         super.expectedHash = "6dd415b8f89a52dd3ce277946150f1df6ea98a89296d0574db69b1fbc4d0aade51abba041529309abfbf07897808edb31a4a6b73a9b7c79fce20476062f6288a";
