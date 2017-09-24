@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import static com.rubiconproject.hashfiles.Utils.validateNotNull;
+import static com.rubiconproject.hashfiles.StaticUtils.validateNotNull;
 
 public class FileHasher implements Hashable {
 

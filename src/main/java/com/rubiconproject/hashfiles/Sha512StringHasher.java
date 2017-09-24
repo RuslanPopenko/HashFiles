@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import static com.rubiconproject.hashfiles.Utils.validateNotNull;
+import static com.rubiconproject.hashfiles.StaticUtils.validateNotNull;
 
 public class Sha512StringHasher implements Hashable {
 

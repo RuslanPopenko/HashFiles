@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.rubiconproject.hashfiles.Utils.validateNotNull;
+import static com.rubiconproject.hashfiles.StaticUtils.validateNotNull;
 
 public class DirectoryHasher implements Hashable {
 
